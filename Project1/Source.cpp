@@ -2,8 +2,9 @@
 void eulerProblem7();
 void eulerProblem30();
 void eulerProblem26();
+void eulerProblem17();
 int main() {
-	eulerProblem26();
+	eulerProblem17();
 	std::cin.get();
 	return 0;
 }
@@ -83,4 +84,19 @@ void eulerProblem30() {
 		}
 	}
 	std::cout << "answer: " << answer << std::endl;
+}
+
+void eulerProblem17() {
+	std::string[] onesPlace = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+	std::string[] teens = ["eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+	int[9] oneePlaceLengths;
+	int[9] teensLengths;
+
+	for (int i = 0; i < 9; i++) {
+		onesPlaceLengths = onesPlace[i].length();
+		teensLengths = teens[i].length();
+	}
+
+	std::cout << onsePLaceLengths<<std::endl;
+	std::cout < teensLengths<<std::endl;
 }
