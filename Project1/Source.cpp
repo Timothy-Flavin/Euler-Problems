@@ -132,5 +132,4 @@ void eulerProblem17() {
 	}
 
 	std::cout<<totalLength + oneThousand.length()<<std::endl;
-	std::cout<<" Tim Flavin did this";
 }
