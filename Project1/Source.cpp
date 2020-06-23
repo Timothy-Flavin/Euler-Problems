@@ -1,12 +1,16 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <vector>
+#include <chrono>
 void eulerProblem7();
 void eulerProblem30();
 void eulerProblem26();
 void eulerProblem17();
+void eulerProblem69();
+void eulerProblem_69();
 int main() {
-	eulerProblem17();
+	eulerProblem_69();
 	std::cin.get();
 	return 0;
 }
@@ -133,3 +137,121 @@ void eulerProblem17() {
 
 	std::cout<<totalLength + oneThousand.length()<<std::endl;
 }
+
+
+int gcd(int a, int b)  
+{  
+    if (a == 0)  
+        return b;  
+    return gcd(b % a, a);  
+}  
+  
+// A simple method to evaluate Euler Totient Function  
+int phi(unsigned int n)  
+{  
+    unsigned int result = 1;  
+    for (int i = 2; i < n; i++)  
+        if (gcd(i, n) == 1)  
+            result++;  
+    return result;  
+}
+void eulerProblem69(){
+	double answer = 0;
+	double temp=0;
+	int solution = 0;
+	auto t1 = std::chrono::high_resolution_clock::now();
+	for(int i = 230000; i <1000000; i++){
+		temp = double(i)/phi(i);
+		if(temp>answer){
+			answer=temp;
+			solution = i;
+		}
+		if(i%10000==0){
+			std::cout<<"answer: "<<answer<<", solution: "<<solution<<std::endl;
+			auto t2 = std::chrono::high_resolution_clock::now();
+			std::cout<<"took: "<<std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count()<<"ms"<<std::endl;
+			t1=t2;
+			std::cout<<double(i)/10000<<"% done"<<std::endl;
+		}
+	}
+	std::cout<<"answer: "<<answer<<std::endl;
+}
+
+int calcTotient(int n, std::vector<int> primes){
+	int compositeNums=0; 
+	int tot = 0;
+	int baseNum = 1;
+	/*std::cout<<"n: "<<n<<", primes list: "<<std::endl;
+	for(int i = 0; i < primes.size();i++){
+		std::cout<<primes[i]<<", ";
+	}
+	std::cout<<std::endl;*/
+	for(int i = 0; i < primes.size(); i++){
+		tot+=n/primes[i];
+		baseNum*=primes[i];
+		for(int j = i+1; j < primes.size();j++){
+			compositeNums++;
+			tot-=(n/(primes[i]*primes[j]));
+		}
+	}
+	return n-(tot+(compositeNums*n/baseNum-(primes.size()-1)*n/baseNum));
+}
+
+std::vector<int> getPrimes(int n){
+	std::vector<int> primesList;
+	bool primesNotFound = true;
+	int curNum = 2; 
+	while(curNum<=n){
+		bool repeat = false;
+		while(n%curNum==0 && n>1){
+			if(!repeat){
+				primesList.push_back(curNum);
+				repeat = true;
+			}
+			n/=curNum;
+		}
+		curNum++;
+	}
+	//if(curNum==n) primesList.push_back(curNum);
+	return primesList; 
+}
+
+void eulerProblem_69(){
+	for(int i = 2; i < 1000; i++){
+		if(calcTotient(i,getPrimes(i)) != phi(i)){
+			std::cout<<"New tot vs old tot "<<i<<std::endl;
+			std::cout<<calcTotient(i,getPrimes(i))<<std::endl;
+			std::cout<<phi(i)<<std::endl;
+		}
+	}
+	/*for(int i = 0; i < 91; i+=2){
+		std::cout<<i;
+		
+			std::cout<<", ";
+		
+	}
+	std::cout<<std::endl;
+	for(int i = 0; i < 91; i+=3){
+		std::cout<<i;
+		
+			std::cout<<", ";
+		
+	}
+	std::cout<<std::endl;
+	for(int i = 0; i < 91; i+=5){
+		std::cout<<i;
+		
+			std::cout<<", ";
+		
+	}*/
+	//primes.push_back(2);
+	//primes.push_back(3);
+	//primes.push_back(5);
+	/*std::cout<<"n: "<<n<<", primes list: "<<std::endl;
+	for(int i = 0; i < primes.size();i++){
+		std::cout<<primes[i]<<", ";
+	}*/
+	//std::cout<<"primes "<<calcTotient(n,primes)<<std::endl;
+}
+  
+  
