@@ -3,6 +3,7 @@
 #include <cmath>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 void eulerProblem7();
 void eulerProblem30();
 void eulerProblem26();
@@ -186,15 +187,41 @@ int calcTotient(int n, std::vector<int> primes){
 		std::cout<<primes[i]<<", ";
 	}
 	std::cout<<std::endl;*/
-	for(int i = 0; i < primes.size(); i++){
+	/*for(int i = 0; i < primes.size(); i++){
 		tot+=n/primes[i];
 		baseNum*=primes[i];
 		for(int j = i+1; j < primes.size();j++){
 			compositeNums++;
 			tot-=(n/(primes[i]*primes[j]));
 		}
+	}*/
+	//For each group size of primes find all combinations from size 1 to primes.size()-1
+	int underCounting = -1;
+	for(int g = 1; g <= primes.size(); g++){
+		underCounting*=-1;
+		int numToDevideBy = 1;
+		std::string bitmask(g, 1); // K leading 1's
+		bitmask.resize(primes.size(), 0); // N-K trailing 0's
+	
+		// print integers and permute bitmask
+		do {
+			numToDevideBy = 1;
+			for (int i = 0; i < primes.size(); ++i) // [0..N-1] integers
+			{
+				if (bitmask[i]){
+					//std::cout << " " << i<<","<<primes[i]<<" ";
+					numToDevideBy*=primes[i];
+				}
+			}
+			//std::cout <<std::endl<<" "<<underCounting*(n/numToDevideBy)<<" "<<numToDevideBy<< std::endl;
+			tot+=underCounting*(n/numToDevideBy);
+		} while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 	}
-	return n-(tot+(compositeNums*n/baseNum-(primes.size()-1)*n/baseNum));
+	//std::cout<<"total: "<<tot;
+		//this pattern 
+		// ooo--, oo-o-, oo--o, o-oo-, o-o-o, o--oo, -ooo-, -oo-o
+		// for i=0; i <= primes.size()-groupSize; i++
+	return n-tot;//n-(tot+(compositeNums*n/baseNum-(primes.size()-1)*n/baseNum));
 }
 
 std::vector<int> getPrimes(int n){
@@ -217,13 +244,14 @@ std::vector<int> getPrimes(int n){
 }
 
 void eulerProblem_69(){
-	for(int i = 2; i < 1000; i++){
+	/*for(int i = 2; i < 10000; i++){
 		if(calcTotient(i,getPrimes(i)) != phi(i)){
 			std::cout<<"New tot vs old tot "<<i<<std::endl;
 			std::cout<<calcTotient(i,getPrimes(i))<<std::endl;
 			std::cout<<phi(i)<<std::endl;
 		}
-	}
+	}*/
+	std::cout<<"done"<<std::endl;
 	/*for(int i = 0; i < 91; i+=2){
 		std::cout<<i;
 		
