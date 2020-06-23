@@ -10,10 +10,13 @@ void eulerProblem26();
 void eulerProblem17();
 void eulerProblem69();
 void eulerProblem_69();
+void testPrimesVsPrimes2();
 int calcTotient(int n, std::vector<int> primes);
 std::vector<int> getPrimes(int n);
+std::vector<int> getPrimes2(int n);
 int main() {
 	eulerProblem69();
+	
 	std::cin.get();
 	return 0;
 }
@@ -165,12 +168,12 @@ void eulerProblem69(){
 	auto t1 = std::chrono::high_resolution_clock::now();
 	auto t3 = std::chrono::high_resolution_clock::now();
 	for(int i = 2; i <1000000; i++){
-		temp = double(i)/calcTotient(i,getPrimes(i));
+		temp = double(i)/calcTotient(i,getPrimes2(i));
 		if(temp>answer){
 			answer=temp;
 			solution = i;
 		}
-		if(i%1000==0){
+		if(i%10000==0){
 			std::cout<<"answer: "<<answer<<", solution: "<<solution<<std::endl;
 			auto t2 = std::chrono::high_resolution_clock::now();
 			std::cout<<"took: "<<std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count()<<"ms"<<std::endl;
@@ -179,7 +182,7 @@ void eulerProblem69(){
 		}
 	}
 	auto t4 = std::chrono::high_resolution_clock::now();
-	std::cout<<"answer: "<<answer<<std::endl;
+	std::cout<<"answer: "<<answer<<", solution: "<<solution<<std::endl;
 	std::cout<<"took: "<<std::chrono::duration_cast<std::chrono::milliseconds>(t4-t3).count()<<"ms"<<std::endl;
 }
 
@@ -244,6 +247,32 @@ std::vector<int> getPrimes(int n){
 		}
 		curNum++;
 	}
+	//primesList.push_back(n);
+	//if(curNum==n) primesList.push_back(curNum);
+	return primesList; 
+}
+std::vector<int> getPrimes2(int n){
+	std::vector<int> primesList;
+	bool primesNotFound = true;
+	int curNum = 2; 
+	while(curNum<sqrt(n)){
+		bool repeat = false;
+		while(n%curNum==0 && n>1){
+			if(!repeat){
+				primesList.push_back(curNum);
+				repeat = true;
+			}
+			n/=curNum;
+		}
+		curNum++;
+	}
+	if(n>1){
+		if(curNum==sqrt(n))
+			n=curNum;
+		primesList.push_back(n);
+
+	}
+		
 	//if(curNum==n) primesList.push_back(curNum);
 	return primesList; 
 }
@@ -309,4 +338,44 @@ void eulerProblem_69(){
 	//std::cout<<"primes "<<calcTotient(n,primes)<<std::endl;
 }
   
-  
+void testPrimesVsPrimes2(){
+	std::vector<int> primes;
+	std::vector<int> newPrimes;
+	int numTests = 1000000;
+	for(int i = 0; i < numTests; i++){
+		primes = getPrimes(i);
+		newPrimes = getPrimes2(i);
+		if(i%(numTests/100)==0){
+			std::cout<<i/(numTests/100)<<"% done"<<std::endl;
+		}
+		if(primes.size()!=newPrimes.size()){
+			std::cout<<"number: "<<i<<std::endl;
+			for(int j = 0; j < primes.size(); j++){
+				std::cout<<" "<<primes[j];
+			}
+			std::cout<<std::endl;
+			for(int j = 0; j < newPrimes.size(); j++){
+				std::cout<<" "<<newPrimes[j];
+			}
+			std::cout<<std::endl;
+		}
+		else{
+			bool samePrimes = true;
+			for(int j = 0; j < primes.size(); j++){
+				if(primes[j]!=newPrimes[j]) samePrimes=false;
+			}
+			if(!samePrimes){
+				std::cout<<"number: "<<i<<std::endl;
+				for(int j = 0; j < primes.size(); j++){
+					std::cout<<" "<<primes[j];
+				}
+				std::cout<<std::endl;
+				for(int j = 0; j < newPrimes.size(); j++){
+					std::cout<<" "<<newPrimes[j];
+				}
+				std::cout<<std::endl;
+			}
+		}
+	}
+	std::cout<<"done"<<std::endl;
+}
