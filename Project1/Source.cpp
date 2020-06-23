@@ -10,8 +10,10 @@ void eulerProblem26();
 void eulerProblem17();
 void eulerProblem69();
 void eulerProblem_69();
+int calcTotient(int n, std::vector<int> primes);
+std::vector<int> getPrimes(int n);
 int main() {
-	eulerProblem_69();
+	eulerProblem69();
 	std::cin.get();
 	return 0;
 }
@@ -161,13 +163,14 @@ void eulerProblem69(){
 	double temp=0;
 	int solution = 0;
 	auto t1 = std::chrono::high_resolution_clock::now();
-	for(int i = 230000; i <1000000; i++){
-		temp = double(i)/phi(i);
+	auto t3 = std::chrono::high_resolution_clock::now();
+	for(int i = 2; i <1000000; i++){
+		temp = double(i)/calcTotient(i,getPrimes(i));
 		if(temp>answer){
 			answer=temp;
 			solution = i;
 		}
-		if(i%10000==0){
+		if(i%1000==0){
 			std::cout<<"answer: "<<answer<<", solution: "<<solution<<std::endl;
 			auto t2 = std::chrono::high_resolution_clock::now();
 			std::cout<<"took: "<<std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count()<<"ms"<<std::endl;
@@ -175,7 +178,9 @@ void eulerProblem69(){
 			std::cout<<double(i)/10000<<"% done"<<std::endl;
 		}
 	}
+	auto t4 = std::chrono::high_resolution_clock::now();
 	std::cout<<"answer: "<<answer<<std::endl;
+	std::cout<<"took: "<<std::chrono::duration_cast<std::chrono::milliseconds>(t4-t3).count()<<"ms"<<std::endl;
 }
 
 int calcTotient(int n, std::vector<int> primes){
@@ -251,6 +256,28 @@ void eulerProblem_69(){
 			std::cout<<phi(i)<<std::endl;
 		}
 	}*/
+	double answer = 0;
+	double temp=0;
+	int solution = 0;
+	unsigned long int phiTime = 0;
+	unsigned long int totTime = 0;
+	for(int i = 2; i <1000000; i++){
+		auto t1 = std::chrono::high_resolution_clock::now();
+		temp = double(i)/phi(i);
+		auto t2 = std::chrono::high_resolution_clock::now();
+		phiTime+=std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count();
+
+		t1 = std::chrono::high_resolution_clock::now();
+		temp = double(i)/calcTotient(i, getPrimes(i));
+		t2 = std::chrono::high_resolution_clock::now();
+		totTime+=std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count();
+		if(i%1000==0){
+			std::cout<<"phiTime: "<<phiTime<<"ns"<<std::endl;
+			std::cout<<"totTime: "<<totTime<<"ns"<<std::endl;
+			std::cout<<double(i)/10000<<"% done"<<std::endl;
+		}
+	}
+	std::cout<<"answer: "<<answer<<std::endl;
 	std::cout<<"done"<<std::endl;
 	/*for(int i = 0; i < 91; i+=2){
 		std::cout<<i;
