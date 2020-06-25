@@ -389,24 +389,36 @@ void eulerProblem8(){
 	}
 	biggestNum = tempNum;
 	std::cout<<tempNum<<std::endl;
+	int bigOCounter =13;
 	for(int i=13; i < numberString.length(); i++){
 		if(int(numberString[i])-48==0){
-			tempNum=0;
+			i+=12;
+			tempNum=1;
 		}
 		else if(int(numberString[i-13])-48==0){
 			tempNum=1;
 			for(int j = 0; j < 13; j++){
+				if(int(numberString[i-12+j])-48 == 0){
+					i+=j+1;
+					j=0;
+					tempNum=1;
+					
+				}
+				if(i>999) break;
 				tempNum*=int(numberString[i-12+j])-48;
-				//std::cout<<"string val: "<<numberString[i+j]<<"num val: "<<int(numberString[i+j])-48<<std::endl;
+				bigOCounter++;
 			}
+			std::cout<<"?"<<tempNum<<std::endl;
+			if(tempNum>biggestNum) biggestNum=tempNum;
 		}
 		else{
 			tempNum/=int(numberString[i-13])-48;
 			tempNum*=int(numberString[i])-48;
+			bigOCounter++;
 			std::cout<<tempNum<<std::endl;
 			if(tempNum>biggestNum) biggestNum=tempNum;
 		}
 		
 	}
-	std::cout<<biggestNum<<std::endl;
+	std::cout<<"biggest num: "<<biggestNum<<", "<<"bigO: "<<bigOCounter<<std::endl;
 }
