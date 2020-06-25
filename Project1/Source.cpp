@@ -6,6 +6,7 @@
 #include <algorithm>
 void eulerProblem7();
 void eulerProblem8();
+void eulerProblem9();
 void eulerProblem30();
 void eulerProblem26();
 void eulerProblem17();
@@ -16,7 +17,7 @@ int calcTotient(int n, std::vector<int> primes);
 std::vector<int> getPrimes(int n);
 std::vector<int> getPrimes2(int n);
 int main() {
-	eulerProblem8();
+	eulerProblem9();
 	
 	std::cin.get();
 	return 0;
@@ -421,4 +422,18 @@ void eulerProblem8(){
 		
 	}
 	std::cout<<"biggest num: "<<biggestNum<<", "<<"bigO: "<<bigOCounter<<std::endl;
+}
+
+
+void eulerProblem9(){
+	int totRun = 0;
+	for(int a = 0; a < 332; a++){
+		for(int b=a+1; b < (1000-a)/2; b++){
+			int c=1000-(a+b);
+			totRun++;
+			if(a*a+b*b==c*c) std::cout<<a*b*c<<" tot operations "<<totRun;
+			
+		}
+	}
+	std::cout<<"done";
 }
