@@ -427,12 +427,28 @@ void eulerProblem8(){
 
 void eulerProblem9(){
 	int totRun = 0;
-	for(int a = 0; a < 332; a++){
+	for(int a = 1; a < 292; a++){
+		//a with the smallest possible b where a<b must fit a^2+b^2<=c^2 to have a chance
+		//of finding a b and c that work 
+		//a^2 + b^2 <= c^2
+		//a^2 + (a+1)^2 <= (1000-(2a+1))^2
+		//2a^2 + 2a + 1 <= (999-2a)^2
+		//2a^2 + 2a + 1 <= 999^2 - 1998a + 4a^2
+		//-2a^2 + 2000a <= 999^2 - 1
+		//
+		//if(pow(((1000-(a+1))/2),2) + a*a < pow((1000-(a+1))/2,2))
 		for(int b=a+1; b < (1000-a)/2; b++){
 			int c=1000-(a+b);
+			if(a*a+b*b>c*c){
+				break;
+			}
 			totRun++;
-			if(a*a+b*b==c*c) std::cout<<a*b*c<<" tot operations "<<totRun;
-			
+			if(a*a+b*b==c*c) {
+				std::cout<<a<<", "<<b<<", "<<c<<std::endl;
+				std::cout<<a*b*c<<" tot operations "<<totRun;
+				a=1000;
+				break;
+			}
 		}
 	}
 	std::cout<<"done";
