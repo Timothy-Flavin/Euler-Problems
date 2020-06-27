@@ -122,13 +122,14 @@ def eulerProblem12():
         numFactors=0
         bigFactor=triangleNumber
         smallFactor=1
-        while bigFactor>=smallFactor:
-            #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
-            if (triangleNumber%smallFactor) == 0:
-                bigFactor=triangleNumber/smallFactor
-                numFactors+=2
-                #print(i)
-            smallFactor+=1
+        if(triangleNumber%2==0):
+            while bigFactor>=smallFactor:
+                #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
+                if (triangleNumber%smallFactor) == 0:
+                    bigFactor=triangleNumber/smallFactor
+                    numFactors+=2
+                    #print(i)
+                smallFactor+=1
         #because we need to count itself
     print("triangle number "+str(triangleNumber)+", numFactors: "+str(numFactors))
 
