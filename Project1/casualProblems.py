@@ -111,7 +111,29 @@ def eulerProblem11():
             
     print(maxVert)
 
+
+def eulerProblem12():
+    triangleNumber = 1
+    numberToBeAdded = 2
+    numFactors=0
+    while numFactors <=500:
+        triangleNumber+=numberToBeAdded
+        numberToBeAdded+=1
+        numFactors=0
+        bigFactor=triangleNumber
+        smallFactor=1
+        while bigFactor>=smallFactor:
+            #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
+            if (triangleNumber%smallFactor) == 0:
+                bigFactor=triangleNumber/smallFactor
+                numFactors+=2
+                #print(i)
+            smallFactor+=1
+        #because we need to count itself
+    print("triangle number "+str(triangleNumber)+", numFactors: "+str(numFactors))
+
+
 start = time.perf_counter()
-eulerProblem11()
+eulerProblem12()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
