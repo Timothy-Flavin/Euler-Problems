@@ -133,6 +133,7 @@ def eulerProblem12():
         #because we need to count itself
     print("triangle number "+str(triangleNumber)+", numFactors: "+str(numFactors))
 
+#this is trivial in python. Should revisit in C++ so I have to write the addition algo
 def eulerProblem13():
     inString = open("problem13.txt", "r").read().split("\n")
     answer=0
@@ -141,7 +142,39 @@ def eulerProblem13():
     print(answer)
 
 
+def eulerProblem14():
+    numLengthDictionary = {}
+    longestOne=0
+    startingDigit=0
+    for i in range(2,1000000):
+        j=i
+        found = False
+        numTerms=0
+        while j!=1 and not found:
+            #print("current num: "+str(j))
+            if j in numLengthDictionary:
+                #print(numLengthDictionary[j])
+                numTerms+=numLengthDictionary[j]
+                found=True
+            elif j%2==0:
+                j=int(j/2)
+                numTerms+=1
+            else:
+                j=3*j+1
+                numTerms+=1
+        if(j==1):
+            numTerms+=1
+        numLengthDictionary[i]=numTerms
+        if(numTerms>longestOne):
+            longestOne=numTerms
+            startingDigit=i
+    print(longestOne)
+    print(startingDigit)
+
+        
+
+
 start = time.perf_counter()
-eulerProblem13()
+eulerProblem14()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
