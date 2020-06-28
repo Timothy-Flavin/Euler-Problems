@@ -133,8 +133,15 @@ def eulerProblem12():
         #because we need to count itself
     print("triangle number "+str(triangleNumber)+", numFactors: "+str(numFactors))
 
+def eulerProblem13():
+    inString = open("problem13.txt", "r").read().split("\n")
+    answer=0
+    for i in range(len(inString)):
+        answer+=int(inString[i])
+    print(answer)
+
 
 start = time.perf_counter()
-eulerProblem12()
+eulerProblem13()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
