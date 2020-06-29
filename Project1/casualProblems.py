@@ -171,10 +171,19 @@ def eulerProblem14():
     print(longestOne)
     print(startingDigit)
 
-        
 
+def eulerProblem15():
+    # this is a discrete math problem like spelling a word with 40 letters but two sets of 20 repeats
+    # so it is as easy as 40!/(20!*20!) or more general (n+m)!/(n!*m!) for any n by m lattice
+    num=1
+    # filling the factorials as lists to avoid excessively large numbers during computation although this
+    # one is easy enough to type the above equation into google
+    for i in range(40):
+        num*=40-i
+        num/=int((40-i)/2+0.51)
+    print(math.ceil(num))
 
 start = time.perf_counter()
-eulerProblem14()
+eulerProblem15()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
