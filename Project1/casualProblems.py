@@ -111,7 +111,6 @@ def eulerProblem11():
             
     print(maxVert)
 
-
 def eulerProblem12():
     triangleNumber = 1
     numberToBeAdded = 2
@@ -140,7 +139,6 @@ def eulerProblem13():
     for i in range(len(inString)):
         answer+=int(inString[i])
     print(answer)
-
 
 def eulerProblem14():
     numLengthDictionary = {}
@@ -171,7 +169,6 @@ def eulerProblem14():
     print(longestOne)
     print(startingDigit)
 
-
 def eulerProblem15():
     # this is a discrete math problem like spelling a word with 40 letters but two sets of 20 repeats
     # so it is as easy as 40!/(20!*20!) or more general (n+m)!/(n!*m!) for any n by m lattice
@@ -183,7 +180,21 @@ def eulerProblem15():
         num/=int((40-i)/2+0.51)
     print(math.ceil(num))
 
+def eulerProblem16():
+    num=1
+    for i in range(1000):
+        num*=2
+    num=str(num)
+    print(num)
+    answer=0
+    for i in num:
+        print(i)
+        answer+=int(i)
+    
+    print("answer: "+str(answer))
+
+
 start = time.perf_counter()
-eulerProblem15()
+eulerProblem16()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
