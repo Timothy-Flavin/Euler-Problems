@@ -227,7 +227,39 @@ def eulerProblem67():
         #print(maxList)
     print(maxList[0])
 
+#745
+def eulerProblem19():
+    months=[31,28,31,30,31,30,31,31,30,31,30,31]
+    year=1901
+    month=0
+    dayOfMonth=0
+    dayOfWeek=2
+    endYear=2001
+
+    totalDays=0
+    sundays=0
+    while year<endYear:
+        while month<len(months):
+            while dayOfMonth<months[month]:
+                if dayOfMonth==0 and dayOfWeek==0:
+                    sundays+=1
+                    #print("sunday on first day")
+                #print("year: "+str(year)+", month: "+str(month+1)+", day: "+str(dayOfMonth+1)+", wkday: "+str(dayOfWeek+1))
+                totalDays+=1
+                dayOfWeek=(dayOfWeek+1)%7
+                dayOfMonth+=1
+            dayOfMonth=0
+            month+=1
+        month=0
+        year+=1
+        if(year%4==0):
+            months[1]=29
+        else:
+            months[1]=28
+    print('sundays '+str(sundays))
+    print('total days '+str(totalDays))
+
 start = time.perf_counter()
-eulerProblem67()
+eulerProblem19()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
