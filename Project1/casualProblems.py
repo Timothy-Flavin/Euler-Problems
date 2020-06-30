@@ -193,8 +193,41 @@ def eulerProblem16():
     
     print("answer: "+str(answer))
 
+def eulerProblem18():
+    inString = open("problem18.txt", "r").read().split("\n")
+    for i in range(len(inString)):
+        inString[i]=inString[i].split(' ')
+    print(inString)
+    maxList = list()
+    for i in range(len(inString[-1])):
+        maxList.append(int(inString[-1][i]))
+    print(maxList)
+    for row in range(len(inString)-2,-1,-1):
+        for col in range(len(inString[row])):
+            print("row "+str(row)+", col "+ str(col))
+            maxList[col]=int(inString[row][col]) + max(maxList[col],maxList[col+1])
+        maxList.pop()
+        print(maxList)
+    print(maxList[0])
+
+def eulerProblem67():
+    inString = open("problem18.txt", "r").read().split("\n")
+    for i in range(len(inString)):
+        inString[i]=inString[i].split(' ')
+    print(inString)
+    maxList = list()
+    for i in range(len(inString[-1])):
+        maxList.append(int(inString[-1][i]))
+    print(maxList)
+    for row in range(len(inString)-2,-1,-1):
+        for col in range(len(inString[row])):
+            print("row "+str(row)+", col "+ str(col))
+            maxList[col]=int(inString[row][col]) + max(maxList[col],maxList[col+1])
+        maxList.pop()
+        print(maxList)
+    print(maxList[0])
 
 start = time.perf_counter()
-eulerProblem16()
+eulerProblem18()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
