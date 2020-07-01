@@ -259,7 +259,16 @@ def eulerProblem19():
     print('sundays '+str(sundays))
     print('total days '+str(totalDays))
 
+def eulerProblem20():
+    bigNumber = str(math.factorial(100))
+    answer = 0
+    for i in bigNumber:
+        answer+=int(i)
+    print(answer)
+
+
+
 start = time.perf_counter()
-eulerProblem19()
+eulerProblem20()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
