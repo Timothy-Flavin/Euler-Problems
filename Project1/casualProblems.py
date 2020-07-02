@@ -259,7 +259,7 @@ def eulerProblem19():
     print('sundays '+str(sundays))
     print('total days '+str(totalDays))
 
-def eulerProblem20():
+def eulerProblem21():
     factorTotals = list(range(10000))
     for i in range(10000):
         factorTotals[i]=0
@@ -294,8 +294,42 @@ def eulerProblem20():
 
     print(amicableNumSum)
     
+def eulerProblem22():
+    alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    alphaVals = {}
+    for i in range(len(alphabet)):
+        alphaVals[alphabet[i]]=i+1
+    inString = open("problem22.txt", "r").read().split('","')
+    inString[0]=inString[0][1:]
+    inString[-1]=inString[-1][:-1]
+    
+    def compareStrings(st1, st2):
+        length = min(len(st1), len(st2))
+        for i in range(length):
+            if alphaVals[st1[i]] < alphaVals[st2[i]]:
+                return 1
+            elif alphaVals[st2[i]] < alphaVals[st1[i]]:
+                return -1
+
+        if len(st1)!=len(st2):
+            if len(st1)<len(st2):
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+
+    answer=0
+    for i in range(len(inString)):
+        stringTotal=0
+        for j in range(len(inString[i])):
+            stringTotal+=alphaVals[inString[i][j]]
+        #if(i==937):
+            #print(inString[i]+"string tot: "+str(stringTotal)+" numToBeAdded: " +str(stringTotal*(i+1)))
+        answer+=stringTotal*(i+1)
+    print(answer)
 
 start = time.perf_counter()
-eulerProblem20()
+eulerProblem22()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
