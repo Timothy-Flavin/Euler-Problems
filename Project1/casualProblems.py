@@ -259,7 +259,43 @@ def eulerProblem19():
     print('sundays '+str(sundays))
     print('total days '+str(totalDays))
 
+def eulerProblem20():
+    factorTotals = list(range(10000))
+    for i in range(10000):
+        factorTotals[i]=0
+    amicableNumSum=0
+
+    def d(n):
+        dn=-n
+        bigFactor=n
+        smallFactor=1
+        while bigFactor>smallFactor:
+                #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
+                if (n%smallFactor) == 0:
+                    bigFactor=int(n/smallFactor)
+                    dn+=bigFactor+smallFactor
+                    #print(bigFactor)
+                    #print(smallFactor)
+                smallFactor+=1
+        return int(dn)
+
+    #print(d(284))
+    #input()
+
+    for i in range(2,10000):
+        if factorTotals[i]==0:
+            factorTotals[i]=d(i)
+            if factorTotals[i]<10000 and factorTotals[factorTotals[i]]==0:
+                factorTotals[factorTotals[i]]=d(factorTotals[i])
+            if factorTotals[i]<10000 and factorTotals[factorTotals[i]] == i and factorTotals[i]!=i:
+                amicableNumSum+=factorTotals[factorTotals[i]] + factorTotals[i]
+                print('factor 1: ' + str(factorTotals[i]) + ' factor 2: ' +str(factorTotals[factorTotals[i]]) )
+
+
+    print(amicableNumSum)
+    
+
 start = time.perf_counter()
-eulerProblem19()
+eulerProblem20()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
