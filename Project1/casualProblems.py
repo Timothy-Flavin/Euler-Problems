@@ -266,9 +266,86 @@ def eulerProblem20():
         answer+=int(i)
     print(answer)
 
+def eulerProblem21():
+    factorTotals = list(range(10000))
+    for i in range(10000):
+        factorTotals[i]=0
+    amicableNumSum=0
 
+    def d(n):
+        dn=-n
+        bigFactor=n
+        smallFactor=1
+        while bigFactor>smallFactor:
+                #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
+                if (n%smallFactor) == 0:
+                    bigFactor=int(n/smallFactor)
+                    dn+=bigFactor+smallFactor
+                    #print(bigFactor)
+                    #print(smallFactor)
+                smallFactor+=1
+        return int(dn)
+
+    #print(d(284))
+    #input()
+
+    for i in range(2,10000):
+        if factorTotals[i]==0:
+            factorTotals[i]=d(i)
+            if factorTotals[i]<10000 and factorTotals[factorTotals[i]]==0:
+                factorTotals[factorTotals[i]]=d(factorTotals[i])
+            if factorTotals[i]<10000 and factorTotals[factorTotals[i]] == i and factorTotals[i]!=i:
+                amicableNumSum+=factorTotals[factorTotals[i]] + factorTotals[i]
+                print('factor 1: ' + str(factorTotals[i]) + ' factor 2: ' +str(factorTotals[factorTotals[i]]) )
+
+
+    print(amicableNumSum)
+    
+def eulerProblem22():
+    alphabet='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    alphaVals = {}
+    for i in range(len(alphabet)):
+        alphaVals[alphabet[i]]=i+1
+    inString = open("problem22.txt", "r").read().split('","')
+    inString[0]=inString[0][1:]
+    inString[-1]=inString[-1][:-1]
+    
+    def compareStrings(st1, st2):
+        length = min(len(st1), len(st2))
+        for i in range(length):
+            if alphaVals[st1[i]] < alphaVals[st2[i]]:
+                return 1
+            elif alphaVals[st2[i]] < alphaVals[st1[i]]:
+                return -1
+
+        if len(st1)!=len(st2):
+            if len(st1)<len(st2):
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+
+    def bubbleSort(arr): 
+        n = len(arr) 
+        for i in range(n-1): 
+            for j in range(0, n-i-1): 
+                if compareStrings(arr[j],arr[j+1])==-1: 
+                    arr[j], arr[j+1] = arr[j+1], arr[j] 
+    bubbleSort(inString)
+    print(inString)
+
+    answer=0
+    for i in range(len(inString)):
+        stringTotal=0
+        for j in range(len(inString[i])):
+            stringTotal+=alphaVals[inString[i][j]]
+        #if(i==937):
+            #print(inString[i]+"string tot: "+str(stringTotal)+" numToBeAdded: " +str(stringTotal*(i+1)))
+        answer+=stringTotal*(i+1)
+    print(answer)
 
 start = time.perf_counter()
-eulerProblem20()
+eulerProblem22()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
