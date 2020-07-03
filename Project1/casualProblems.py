@@ -280,7 +280,10 @@ def eulerProblem21():
                 #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
                 if (n%smallFactor) == 0:
                     bigFactor=int(n/smallFactor)
-                    dn+=bigFactor+smallFactor
+                    if(bigFactor!=smallFactor):
+                        dn+=bigFactor+smallFactor
+                    else:
+                        dn+=bigFactor
                     #print(bigFactor)
                     #print(smallFactor)
                 smallFactor+=1
@@ -345,7 +348,53 @@ def eulerProblem22():
         answer+=stringTotal*(i+1)
     print(answer)
 
+def eulerProblem23():
+    def d(n):
+        dn=-n
+        bigFactor=n
+        smallFactor=1
+        while bigFactor>smallFactor:
+                #print("num tried "+str(i) +"triangle: "+str(triangleNumber))
+                if (n%smallFactor) == 0:
+                    bigFactor=int(n/smallFactor)
+                    if(bigFactor!=smallFactor):
+                        dn+=bigFactor+smallFactor
+                    else:
+                        dn+=bigFactor
+                    #print(bigFactor)
+                    #print(smallFactor)
+                smallFactor+=1
+        return int(dn)>n
+
+    listOfAbundantNums=list()
+    listOfNums=[0]*28124
+    #print(listOfNums)
+    for i in range(10,28124):
+        if d(i):
+            listOfAbundantNums.append(i)
+    #print(listOfAbundantNums)
+    i=0
+    j=0
+    while i<len(listOfAbundantNums):
+        j=i
+        while j<len(listOfAbundantNums):
+            t=listOfAbundantNums[i]+listOfAbundantNums[j]
+            if t<28124:
+                listOfNums[t]=1
+            else:
+                j=len(listOfAbundantNums)
+            j+=1
+        i+=1
+    answer=0
+    for n in range(len(listOfNums)):
+        if(listOfNums[n]==0):
+            #print(n)
+            answer+=n
+        #if n%100==0:
+            #input()
+    print("done "+str(answer))
+
 start = time.perf_counter()
-eulerProblem22()
+eulerProblem21()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
