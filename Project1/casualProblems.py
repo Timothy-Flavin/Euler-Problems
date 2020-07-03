@@ -394,7 +394,34 @@ def eulerProblem23():
             #input()
     print("done "+str(answer))
 
+def eulerProblem24():
+    digits={"0":0, "1":0, "2":0, "3":0, "4":0, "5":0, "6":0, "7":0, "8":0, "9":0}
+    answer=["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    target=4
+    i=0
+    while(target!=0):
+        print(target)
+        digitNum=0
+        permuteNum=1
+        while permuteNum*(digitNum+1)<target:
+            digitNum+=1
+            permuteNum*=digitNum
+        while permuteNum<=target:
+            target-=permuteNum
+            digits[str(digitNum)]+=1
+            print("i: "+str(i)+", digitNum: "+str(digitNum))
+            print(digits)
+        i+=1
+        #digits[str(digitNum)]+=1
+        
+    print(digits)
+
+    for i in range(len(answer)):
+        #print(answer)
+        answer[i],answer[i+digits[str(i)]]=answer[i+digits[str(i)]], answer[i]
+    print("actual answer: "+str(answer))
+
 start = time.perf_counter()
-eulerProblem21()
+eulerProblem24()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
