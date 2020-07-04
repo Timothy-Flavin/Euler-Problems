@@ -416,7 +416,16 @@ def eulerProblem24():
         
     print(digits)
 
+def eulerProblem25():
+    f1=1
+    f2=1
+    i=2
+    while len(str(f2))<1000:
+        f1,f2=f2,f1+f2
+        i+=1
+    print("index: "+str(i)+", f1: "+str(f1)+", f2: "+str(f2))
+    
 start = time.perf_counter()
-eulerProblem24()
+eulerProblem25()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
