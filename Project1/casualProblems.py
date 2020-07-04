@@ -409,12 +409,17 @@ def eulerProblem24():
         while permuteNum<=target:
             target-=permuteNum
             digits[str(digitNum)]+=1
-            print("i: "+str(i)+", digitNum: "+str(digitNum))
+            #print("i: "+str(i)+", digitNum: "+str(digitNum))
             #print(digits)
         i+=1
         #digits[str(digitNum)]+=1
-        
-    print(digits)
+    tempstr="0123456789"
+    answer=""
+    for i in range(9,-1,-1):
+        answer+=tempstr[digits[str(i)]]
+        tempstr=tempstr.replace(answer[-1],"")
+        #print(answer+"-"+tempstr)
+    print("answer: "+answer)
 
 def eulerProblem25():
     f1=1
@@ -426,6 +431,6 @@ def eulerProblem25():
     print("index: "+str(i)+", f1: "+str(f1)+", f2: "+str(f2))
     
 start = time.perf_counter()
-eulerProblem25()
+eulerProblem24()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
