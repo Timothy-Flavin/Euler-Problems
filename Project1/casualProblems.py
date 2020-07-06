@@ -449,7 +449,16 @@ def eulerProblem27():
             print(str((a+1000)/20.)+str("% done"))
     print("aFinal: "+str(aFinal)+", bFinal: "+str(bFinal)+", answer: "+str(aFinal*bFinal)+", num primes: "+str(answer))    
 
+def eulerProblem28():
+    curNum=1
+    total=1
+    for n_by_n in range(1,1001,2):
+        for i in range(4):
+            curNum+=n_by_n+1
+            total+=curNum
+    print(total)
+
 start = time.perf_counter()
-eulerProblem27()
+eulerProblem28()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
