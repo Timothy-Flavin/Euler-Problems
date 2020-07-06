@@ -1,6 +1,6 @@
 import math
 import time
-
+import sympy
 
 def eulerProblem10():
     primes = list()
@@ -396,7 +396,6 @@ def eulerProblem23():
 
 def eulerProblem24():
     digits={"0":0, "1":0, "2":0, "3":0, "4":0, "5":0, "6":0, "7":0, "8":0, "9":0}
-    answer=["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     target=1000000-1
     i=0
     while(target!=0):
@@ -429,8 +428,28 @@ def eulerProblem25():
         f1,f2=f2,f1+f2
         i+=1
     print("index: "+str(i)+", f1: "+str(f1)+", f2: "+str(f2))
-    
+
+def eulerProblem27():
+    answer=0
+    aFinal=0
+    bFinal=0
+
+    for a in range(-999,999):
+        for b in range(-999,999):
+            prime = True
+            n=0
+            while prime:
+                prime=sympy.isprime(n*n+a*n+b)
+                n+=1
+            if n>answer:
+                answer=n
+                aFinal=a
+                bFinal=b
+        if a%20==0:
+            print(str((a+1000)/20.)+str("% done"))
+    print("aFinal: "+str(aFinal)+", bFinal: "+str(bFinal)+", answer: "+str(aFinal*bFinal)+", num primes: "+str(answer))    
+
 start = time.perf_counter()
-eulerProblem24()
+eulerProblem27()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
