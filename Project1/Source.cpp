@@ -13,11 +13,13 @@ void eulerProblem17();
 void eulerProblem69();
 void eulerProblem_69();
 void testPrimesVsPrimes2();
+void eulerProblem31();
+
 int calcTotient(int n, std::vector<int> primes);
 std::vector<int> getPrimes(int n);
 std::vector<int> getPrimes2(int n);
 int main() {
-	eulerProblem9();
+	eulerProblem31();
 	
 	std::cin.get();
 	return 0;
@@ -454,3 +456,24 @@ void eulerProblem9(){
 	std::cout<<"done";
 }
 
+
+void getCoins(int temp, int* coinAmounts, int numCoins, int curCoin){
+
+	while(temp/coinAmounts[curCoin]>=0){
+		if(curCoin<numCoins-1)
+			getCoins(temp, coinAmounts, numCoins, curCoin+1);
+		temp-=coinAmounts[curCoin];
+	}
+
+}
+
+void eulerProblem31(){
+	int total = 200;
+	int* coinAmounts= new int [8]{200,100,50,20,10,5,2,1};
+	for(int i = 0; i < 8; i++){
+		std::cout<<coinAmounts[i];
+	}
+	//int* temp[8]={0,0,0,0,0,0,0,0};
+	//temp[0]=total;
+	
+}

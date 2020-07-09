@@ -468,6 +468,6 @@ def eulerProblem29():
     print(len(answerList))
 
 start = time.perf_counter()
-eulerProblem29()
+eulerProblem27()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
