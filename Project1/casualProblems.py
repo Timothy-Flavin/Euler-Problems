@@ -458,7 +458,16 @@ def eulerProblem28():
             total+=curNum
     print(total)
 
+def eulerProblem29():
+    answerList = list()
+    for a in range(2,101):
+        for b in range(2, 101):
+            if(int(pow(a,b)) not in answerList):
+                answerList.append(int(pow(a,b)))
+        print(str(a/100)+"% done")
+    print(len(answerList))
+
 start = time.perf_counter()
-eulerProblem28()
+eulerProblem29()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
