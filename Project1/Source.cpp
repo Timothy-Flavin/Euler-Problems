@@ -457,23 +457,25 @@ void eulerProblem9(){
 }
 
 
-void getCoins(int temp, int* coinAmounts, int numCoins, int curCoin){
-
-	while(temp/coinAmounts[curCoin]>=0){
+void getCoins(int temp, int* coinAmounts, int numCoins, int curCoin, int* counter){
+	//std::cout<<"temp "<<temp<<", curCoin "<<coinAmounts[curCoin]<<std::endl;
+	while(temp>=0){
 		if(curCoin<numCoins-1)
-			getCoins(temp, coinAmounts, numCoins, curCoin+1);
+			getCoins(temp, coinAmounts, numCoins, curCoin+1, counter);
 		temp-=coinAmounts[curCoin];
 	}
-
+	if(curCoin==numCoins-1){
+		(*counter)++;
+	}
+	if(curCoin==0){
+		std::cout<<(*counter)<<std::endl;
+	}
 }
 
 void eulerProblem31(){
 	int total = 200;
-	int* coinAmounts= new int [8]{200,100,50,20,10,5,2,1};
-	for(int i = 0; i < 8; i++){
-		std::cout<<coinAmounts[i];
-	}
-	//int* temp[8]={0,0,0,0,0,0,0,0};
-	//temp[0]=total;
-	
+	int* coinAmounts = new int [8]{200,100,50,20,10,5,2,1};
+	int ct = 0;
+	int* counter = &ct;
+	getCoins(total, coinAmounts, 8, 0, counter);
 }
