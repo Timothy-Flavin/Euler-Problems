@@ -467,6 +467,28 @@ def eulerProblem29():
         print(str(a/100)+"% done")
     print(len(answerList))
 
+def eulerProblem32():
+    # at a=135 the smalles b can be is 246 and the product is too many digits
+    # so if a is the smaller number a has to be less than 136
+    pandigitalNums=list()
+    for a in range(1, 136):
+        b=a+1
+        while True:
+            temp=str(a)+str(b) + str(a*b)
+            if(len(temp)>9):
+                break
+            if(len(temp)==9):
+                pandigital=True
+                for i in range(1,10):
+                    if not str(i) in temp:
+                        pandigital=False
+                if pandigital:
+                    if(a*b not in pandigitalNums):
+                        print("a: "+str(a)+", b: "+str(b)+", a*b: "+str(a*b))
+                        pandigitalNums.append(a*b)
+            b+=1
+    print(sum(pandigitalNums))
+
 def eulerProblem34():
     start = 3
     tot=0
@@ -483,6 +505,6 @@ def eulerProblem34():
     print("done")
     
 start = time.perf_counter()
-eulerProblem34()
+eulerProblem32()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
