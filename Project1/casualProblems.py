@@ -484,7 +484,7 @@ def eulerProblem32():
                         pandigital=False
                 if pandigital:
                     if(a*b not in pandigitalNums):
-                        print("a: "+str(a)+", b: "+str(b)+", a*b: "+str(a*b))
+                        #print("a: "+str(a)+", b: "+str(b)+", a*b: "+str(a*b))
                         pandigitalNums.append(a*b)
             b+=1
     print(sum(pandigitalNums))
@@ -496,18 +496,18 @@ def eulerProblem33():
         for denominator in range(numerator, 100):
             if numerator%10!=0 and numerator%10 == int(denominator/10) and int(numerator/10)!=numerator%10:
                 if int(numerator/10)*denominator==numerator*(denominator%10):
-                    print("num: " +str(numerator)+", den: "+str(denominator))
+                    #print("num: " +str(numerator)+", den: "+str(denominator))
                     fnum*=numerator
                     fden*=denominator
     i=2
-    print("fnum: " +str(fnum)+", fden: "+str(fden))
+    #print("fnum: " +str(fnum)+", fden: "+str(fden))
     while i<=fnum and i<=fden:
         while fnum%i==0 and fden%i==0:
             fnum=int(fnum/i)
             fden=int(fden/i)
         i+=1
-    print("fnum: " +str(fnum)+", fden: "+str(fden))
-
+    #print("fnum: " +str(fnum)+", fden: "+str(fden))
+    print("answer: "+str(fden))
 
 def eulerProblem34():
     start = 3
@@ -524,7 +524,25 @@ def eulerProblem34():
         start+=1
     print("done")
     
+def eulerProblem35():
+    numCirclePrimes=0
+    for i in range(1000000):
+        if sympy.isprime(i):
+            circlePrime=True
+            circle = str(i)
+            #print(circle)
+            for j in range(len(circle)-1):
+                circle=circle[-1]+circle[0:-1]
+                if not (sympy.isprime(int(circle))):
+                    circlePrime=False
+            if circlePrime:
+                #print(i)
+                numCirclePrimes+=1
+                #input()
+    print(numCirclePrimes)
+
+
 start = time.perf_counter()
-eulerProblem33()
+eulerProblem35()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
