@@ -467,7 +467,22 @@ def eulerProblem29():
         print(str(a/100)+"% done")
     print(len(answerList))
 
+def eulerProblem34():
+    start = 3
+    tot=0
+    while(start<2540160):
+        temp=0
+        cur=start
+        while cur>0:
+            temp+=math.factorial(cur%10)
+            cur=int(cur/10)
+        if(temp==start):
+            tot+=temp
+            print(tot)
+        start+=1
+    print("done")
+    
 start = time.perf_counter()
-eulerProblem27()
+eulerProblem34()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
