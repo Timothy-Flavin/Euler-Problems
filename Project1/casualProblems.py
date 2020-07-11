@@ -541,8 +541,34 @@ def eulerProblem35():
                 #input()
     print(numCirclePrimes)
 
+def eulerProblem36():
+    tot=0
+    for i in range(1,1000000):
+        decimal=str(i)
+        
+
+        doublePalindrone = True        
+        for j in range(int((len(decimal)+1)/2)):
+            if(decimal[j]!=decimal[-(j+1)]):
+                doublePalindrone=False
+        if(doublePalindrone):
+            binary=""
+            temp=i
+            while temp>0:
+                binary=str(temp%2)+binary
+                temp=int(temp/2)
+            for j in range(int((len(binary)+1)/2)):
+                if(binary[j]!=binary[-(j+1)]):
+                    doublePalindrone=False
+            if(doublePalindrone):
+                tot+=i
+        #print(doublePalindrone)
+        #print(decimal)
+        #print(binary)
+        #input()
+    print(tot)
 
 start = time.perf_counter()
-eulerProblem35()
+eulerProblem36()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
