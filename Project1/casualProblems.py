@@ -489,6 +489,26 @@ def eulerProblem32():
             b+=1
     print(sum(pandigitalNums))
 
+def eulerProblem33():
+    fnum=1
+    fden=1
+    for numerator in range(11,100):
+        for denominator in range(numerator, 100):
+            if numerator%10!=0 and numerator%10 == int(denominator/10) and int(numerator/10)!=numerator%10:
+                if int(numerator/10)*denominator==numerator*(denominator%10):
+                    print("num: " +str(numerator)+", den: "+str(denominator))
+                    fnum*=numerator
+                    fden*=denominator
+    i=2
+    print("fnum: " +str(fnum)+", fden: "+str(fden))
+    while i<=fnum and i<=fden:
+        while fnum%i==0 and fden%i==0:
+            fnum=int(fnum/i)
+            fden=int(fden/i)
+        i+=1
+    print("fnum: " +str(fnum)+", fden: "+str(fden))
+
+
 def eulerProblem34():
     start = 3
     tot=0
@@ -505,6 +525,6 @@ def eulerProblem34():
     print("done")
     
 start = time.perf_counter()
-eulerProblem32()
+eulerProblem33()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
