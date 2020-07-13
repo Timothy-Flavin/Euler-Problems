@@ -568,6 +568,18 @@ def eulerProblem36():
         #input()
     print(tot)
 
+eulerProblem37():
+    numPrimes = 11
+    i=11
+    stringI =str(i)
+    while numPrimes > 0:
+        prime=True
+        if(sympy.isPrime(i)):
+            stringI = str(i)
+            for j in range(1, len(stringI)):
+                if not sympy.isprime() or int(stringI[i:])
+        i+=2
+
 start = time.perf_counter()
 eulerProblem36()
 end = time.perf_counter()-start
