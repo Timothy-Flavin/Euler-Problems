@@ -579,7 +579,6 @@ def eulerProblem37():
         #print("current num: "+str(i))
         if(sympy.isprime(i)):
             stringI = str(i)
-            
             if stringI[0]=="1" or stringI[-1]=="1":
                 #print("one on the end")
                 prime=False

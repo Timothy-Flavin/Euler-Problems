@@ -14,13 +14,16 @@ void eulerProblem69();
 void eulerProblem_69();
 void testPrimesVsPrimes2();
 void eulerProblem31();
+void eulerProblem38();
 
 int calcTotient(int n, std::vector<int> primes);
 std::vector<int> getPrimes(int n);
 std::vector<int> getPrimes2(int n);
 int main() {
+	auto t1 = std::chrono::high_resolution_clock::now();
 	eulerProblem31();
-	
+	auto t2 = std::chrono::high_resolution_clock::now();
+	std::cout<<"Time elapsed: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count()<<" nano seconds"<<std::endl;
 	std::cin.get();
 	return 0;
 }
@@ -478,4 +481,37 @@ void eulerProblem31(){
 	int ct = 0;
 	int* counter = &ct;
 	getCoins(total, coinAmounts, 8, 0, counter);
+}
+
+void eulerProblem38(){
+	for(int i = 1; i < 987654321/2; i++){
+		int numDigits = 0;
+		int temp = i;
+		int tot = i;
+		int n=1;
+		while(numDigits<9 || n<3){
+			temp = i*(n);
+			while(temp/10>0){
+				temp/=10;
+				tot*=10;
+				numDigits++;
+			}
+			tot+=i*n;
+			n++;
+		}
+		if(numDigits==9){
+			int mask=511;
+			int number=0;
+			temp=tot;
+			int t=0;
+			for(int j = 0; j < 9; j++){
+				t=temp%10;
+				if(t>0) number+= 1<<(t-1);
+				temp/=10;
+			}
+			if(number==mask){
+				std::cout<<"i: "<<i<<", n: "<<n<<", tot: "<<tot<<std::endl;
+			}
+		}
+	}
 }
