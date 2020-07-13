@@ -568,19 +568,40 @@ def eulerProblem36():
         #input()
     print(tot)
 
-eulerProblem37():
+def eulerProblem37():
+    answer=0
     numPrimes = 11
     i=11
     stringI =str(i)
     while numPrimes > 0:
         prime=True
-        if(sympy.isPrime(i)):
+        #input()
+        #print("current num: "+str(i))
+        if(sympy.isprime(i)):
             stringI = str(i)
-            for j in range(1, len(stringI)):
-                if not sympy.isprime() or int(stringI[i:])
+            
+            if stringI[0]=="1" or stringI[-1]=="1":
+                #print("one on the end")
+                prime=False
+            else:
+                for j in range(1, len(stringI)):
+                    #print("-----------next--------")
+                    #print("[:j] "+stringI[:j])
+                    #print("[j:] "+stringI[j:])
+                    if not sympy.isprime(int(stringI[:j])) or not sympy.isprime(int(stringI[j:])):
+                        prime=False
+                        #print("--------not-prime---------")
+        else:
+            #print("not prime")
+            prime=False
+        if(prime):
+            numPrimes-=1
+            answer+=i
+            #print("double prime: "+str(i))     
         i+=2
+    print("sum of double primes: "+str(answer))
 
 start = time.perf_counter()
-eulerProblem36()
+eulerProblem37()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
