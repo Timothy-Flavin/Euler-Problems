@@ -21,9 +21,9 @@ std::vector<int> getPrimes(int n);
 std::vector<int> getPrimes2(int n);
 int main() {
 	auto t1 = std::chrono::high_resolution_clock::now();
-	eulerProblem31();
+	eulerProblem38();
 	auto t2 = std::chrono::high_resolution_clock::now();
-	std::cout<<"Time elapsed: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count()<<" nano seconds"<<std::endl;
+	std::cout<<"Time elapsed: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count()/1000000.0<<" milli seconds"<<std::endl;
 	std::cin.get();
 	return 0;
 }
@@ -429,7 +429,6 @@ void eulerProblem8(){
 	std::cout<<"biggest num: "<<biggestNum<<", "<<"bigO: "<<bigOCounter<<std::endl;
 }
 
-
 void eulerProblem9(){
 	int totRun = 0;
 	for(int a = 1; a < 292; a++){
@@ -459,7 +458,6 @@ void eulerProblem9(){
 	std::cout<<"done";
 }
 
-
 void getCoins(int temp, int* coinAmounts, int numCoins, int curCoin, int* counter){
 	//std::cout<<"temp "<<temp<<", curCoin "<<coinAmounts[curCoin]<<std::endl;
 	while(temp>=0){
@@ -484,14 +482,17 @@ void eulerProblem31(){
 }
 
 void eulerProblem38(){
-	for(int i = 1; i < 987654321/2; i++){
+	int answer=0;
+	for(int i = 1; i < 9999; i++){
 		int numDigits = 0;
 		int temp = i;
-		int tot = i;
+		int tot = 0;
 		int n=1;
 		while(numDigits<9 || n<3){
+			//std::cout<<"i: "<<i<<", n: "<<n<<", tot: "<<tot<<std::endl;
+			//std::cin.get();
 			temp = i*(n);
-			while(temp/10>0){
+			while(temp>0){
 				temp/=10;
 				tot*=10;
 				numDigits++;
@@ -510,8 +511,12 @@ void eulerProblem38(){
 				temp/=10;
 			}
 			if(number==mask){
-				std::cout<<"i: "<<i<<", n: "<<n<<", tot: "<<tot<<std::endl;
+				if(tot>answer){
+					answer=tot;
+				}
+				//std::cout<<"Pandigital! i: "<<i<<", n: "<<n<<", tot: "<<tot<<", answer: "<<answer<<std::endl;
 			}
 		}
 	}
+	std::cout<<"answer: "<<answer<<std::endl;
 }
