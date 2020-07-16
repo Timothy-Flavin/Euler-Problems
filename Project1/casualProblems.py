@@ -600,7 +600,28 @@ def eulerProblem37():
         i+=2
     print("sum of double primes: "+str(answer))
 
+def eulerProblem38():
+    maxPerim = 1000
+    triangles = {}
+    for i in range(maxPerim+1):
+        triangles[i]=0
+    biggestLeg=math.ceil(maxPerim/2)
+    for a in range(1,biggestLeg):
+        for b in range(a,biggestLeg):
+            c = math.sqrt(a*a+b*b)
+            if(a+b+c<=maxPerim and math.floor(c)==c):
+                c=int(c)
+                #print("a: "+str(a)+", b: "+str(b)+", c: "+str(c))
+                triangles[a+b+c]+=1
+    mostTriangles=0
+    answer=0
+    for i in triangles:
+        if triangles[i]>mostTriangles:
+            mostTriangles=triangles[i]
+            answer=i
+    print(answer)
+
 start = time.perf_counter()
-eulerProblem37()
+eulerProblem38()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
