@@ -621,7 +621,15 @@ def eulerProblem38():
             answer=i
     print(answer)
 
+def eulerProblem40():
+    answer=""
+    i=1
+    while len(answer)<=1000000:
+        answer+=str(i)
+        i+=1
+    print(str(int(answer[0])*int(answer[9])*int(answer[99])*int(answer[999])*int(answer[9999])*int(answer[99999])*int(answer[999999])))
+
 start = time.perf_counter()
-eulerProblem38()
+eulerProblem40()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
