@@ -629,7 +629,24 @@ def eulerProblem40():
         i+=1
     print(str(int(answer[0])*int(answer[9])*int(answer[99])*int(answer[999])*int(answer[9999])*int(answer[99999])*int(answer[999999])))
 
+def eulerProblem41():
+    pandigital=987654321
+    notPrime=True
+    notPandigital=True
+    while(notPrime or notPandigital):
+        notPandigital=False
+        for i in range(len(str(pandigital))):
+            if str(i+1) not in str(pandigital):
+                notPandigital=True
+        if not notPandigital:
+            if sympy.isprime(pandigital):
+                notPrime=False
+                print(pandigital)    
+        else:
+            pandigital-=2
+    print(pandigital)
+
 start = time.perf_counter()
-eulerProblem40()
+eulerProblem41()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
