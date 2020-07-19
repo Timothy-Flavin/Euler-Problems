@@ -643,7 +643,14 @@ def eulerProblem41():
             curNumStr[i] = int(curNumStr[i])
         #print(curNumStr)
         curDigit = len(curNumStr)-2
-        while curDigit>0:
+
+        while curNumStr[0]>1:
+            #input()
+            curDigit=0
+            for i in range(len(curNumStr)-1):
+                if curNumStr[i]>curNumStr[i+1]:
+                    curDigit=i
+
             minDigits=list()
             largestMinIndex=-1
             for i in range(curDigit+1,len(curNumStr)):
@@ -654,15 +661,30 @@ def eulerProblem41():
             
             #print(curDigit)
             #print(curNumStr.index(int(max(minDigits))))
-            minDigits.sort(reverse=True)
-            biggestSmall = curNumStr.index(minDigits[0])
-            #print(curNumStr)
-            #print("curNumStr[curDigit]: "+str(curNumStr[curDigit])+", curNumStr[curNumStr.index(int(max(minDigits)))]: "+ str(curNumStr[biggestSmall]))
-            curNumStr[curDigit], curNumStr[biggestSmall] = curNumStr[biggestSmall], curNumStr[curDigit]
-            #print("curNumStr[curDigit]: "+str(curNumStr[curDigit])+", curNumStr[curNumStr.index(max(minDigits))]: "+ str(curNumStr[biggestSmall]))
-            
-            curDigit-=1
-    checkForPandigitalPrimes(9)
+            if len(minDigits)>0:
+                minDigits.sort(reverse=True)
+                biggestSmall = curNumStr.index(minDigits[0])
+                #print(curNumStr)
+                #print("curNumStr[curDigit]: "+str(curNumStr[curDigit])+", curNumStr[curNumStr.index(int(max(minDigits)))]: "+ str(curNumStr[biggestSmall]))
+                curNumStr[curDigit], curNumStr[biggestSmall] = curNumStr[biggestSmall], curNumStr[curDigit]
+                #print("curNumStr[curDigit]: "+str(curNumStr[curDigit])+", curNumStr[curNumStr.index(max(minDigits))]: "+ str(curNumStr[biggestSmall]))
+                endOfString=curNumStr[curDigit+1:]
+                endOfString.sort(reverse=True)
+                curNumStr = curNumStr[0:curDigit+1] + endOfString
+            tot=0
+            for i in range(len(curNumStr)):
+                tot*=10
+                tot+=curNumStr[i]
+            #print(tot)
+            #input()
+            if sympy.isprime(tot):
+                print('tot: '+str(tot))
+                return True
+    for i in range(9, 0, -1):
+        print(i)
+        if(checkForPandigitalPrimes(i)):
+            break
+    print("done")
 
 start = time.perf_counter()
 eulerProblem41()
