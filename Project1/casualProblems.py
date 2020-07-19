@@ -630,21 +630,39 @@ def eulerProblem40():
     print(str(int(answer[0])*int(answer[9])*int(answer[99])*int(answer[999])*int(answer[9999])*int(answer[99999])*int(answer[999999])))
 
 def eulerProblem41():
-    pandigital=987654321
-    notPrime=True
-    notPandigital=True
-    while(notPrime or notPandigital):
-        notPandigital=False
-        for i in range(len(str(pandigital))):
-            if str(i+1) not in str(pandigital):
-                notPandigital=True
-        if not notPandigital:
-            if sympy.isprime(pandigital):
-                notPrime=False
-                print(pandigital)    
-        else:
-            pandigital-=2
-    print(pandigital)
+    def checkForPandigitalPrimes(numDigits):
+        panNum = ""
+        foundPrime = False
+        for i in range(numDigits):
+            panNum=str(i+1)+panNum
+        #print(panNum)
+
+
+        curNumStr = list(str(panNum))
+        for i in range(len(curNumStr)):
+            curNumStr[i] = int(curNumStr[i])
+        #print(curNumStr)
+        curDigit = len(curNumStr)-2
+        while curDigit>0:
+            minDigits=list()
+            largestMinIndex=-1
+            for i in range(curDigit+1,len(curNumStr)):
+                if curNumStr[i] < curNumStr[curDigit]:
+                    minDigits.append(curNumStr[i])
+            #print(minDigits)
+            #print(max(minDigits))
+            
+            #print(curDigit)
+            #print(curNumStr.index(int(max(minDigits))))
+            minDigits.sort(reverse=True)
+            biggestSmall = curNumStr.index(minDigits[0])
+            #print(curNumStr)
+            #print("curNumStr[curDigit]: "+str(curNumStr[curDigit])+", curNumStr[curNumStr.index(int(max(minDigits)))]: "+ str(curNumStr[biggestSmall]))
+            curNumStr[curDigit], curNumStr[biggestSmall] = curNumStr[biggestSmall], curNumStr[curDigit]
+            #print("curNumStr[curDigit]: "+str(curNumStr[curDigit])+", curNumStr[curNumStr.index(max(minDigits))]: "+ str(curNumStr[biggestSmall]))
+            
+            curDigit-=1
+    checkForPandigitalPrimes(9)
 
 start = time.perf_counter()
 eulerProblem41()
