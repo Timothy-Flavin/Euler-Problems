@@ -686,7 +686,35 @@ def eulerProblem41():
             break
     print("done")
 
+def eulerProblem42():
+    inString = open("problem42.txt", "r").read().split('","')
+    inString[0]=inString[0][1:]
+    inString[-1]=inString[-1][:-1]
+    #print(inString)
+
+    triangleNumbers = list()
+    triangleNumbers.append(1)
+    numTriangleWords = 0
+    for i in inString:
+        #print(i)
+        wordTot=0
+        for j in i:
+            wordTot+=ord(j)-64
+            #print(ord(j)-64, end="")
+        #print("word tot: "+str(wordTot))
+        while wordTot>triangleNumbers[-1]:
+            triangleNumbers.append(int(int(len(triangleNumbers)*(len(triangleNumbers)+1))*1/2))
+            #print("Length of triangle numbers list: "+str(len(triangleNumbers)))
+            #print("Last item in the list: "+str(triangleNumbers[-1]))
+        if wordTot in triangleNumbers:
+            #print(i+" is a triangle number")
+            numTriangleWords+=1
+        #print()
+        #input()
+    print(numTriangleWords)
+
+
 start = time.perf_counter()
-eulerProblem41()
+eulerProblem42()
 end = time.perf_counter()-start
 print("time elapsed "+ str(end) + "seconds")
