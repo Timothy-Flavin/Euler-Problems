@@ -713,8 +713,8 @@ def eulerProblem42():
         #input()
     print(numTriangleWords)
 
-
-start = time.perf_counter()
-eulerProblem42()
-end = time.perf_counter()-start
-print("time elapsed "+ str(end) + "seconds")
+if __name__ == "__main__":
+    start = time.perf_counter()
+    eulerProblem42()
+    end = time.perf_counter()-start
+    print("time elapsed "+ str(end) + "seconds")
