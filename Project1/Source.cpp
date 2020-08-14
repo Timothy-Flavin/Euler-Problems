@@ -4,6 +4,8 @@
 #include <vector>
 #include <chrono>
 #include <algorithm>
+void eulerProblem3();
+void eulerProblem3b();
 void eulerProblem7();
 void eulerProblem8();
 void eulerProblem9();
@@ -16,16 +18,64 @@ void testPrimesVsPrimes2();
 void eulerProblem31();
 void eulerProblem38();
 
+
+
 int calcTotient(int n, std::vector<int> primes);
 std::vector<int> getPrimes(int n);
 std::vector<int> getPrimes2(int n);
 int main() {
+
 	auto t1 = std::chrono::high_resolution_clock::now();
-	eulerProblem38();
+	eulerProblem3();
 	auto t2 = std::chrono::high_resolution_clock::now();
-	std::cout<<"Time elapsed: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(t2-t1).count()/1000000.0<<" milli seconds"<<std::endl;
+	std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0 << " milli seconds" << std::endl;
+	auto t3 = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+	auto t4 = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+	t3 = 0;
+	t4 = 0;
+	for (int i = 0; i < 1000; i++) {
+		t1 = std::chrono::high_resolution_clock::now();
+		eulerProblem3b();
+		t2 = std::chrono::high_resolution_clock::now();
+		std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0 << " milli seconds" << std::endl;
+		t3 += std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+		t1 = std::chrono::high_resolution_clock::now();
+		eulerProblem3();
+		t2 = std::chrono::high_resolution_clock::now();
+		std::cout << "Time elapsed b: " << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0 << " milli seconds" << std::endl;
+		t4 += std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+	}
+	std::cout << t3 << '\n' << t4 << std::endl;
 	std::cin.get();
 	return 0;
+}
+
+void eulerProblem3() {
+	long long int bigBoi = 600851475143;
+	long long int i = 3;
+	long long int largest = 0;
+	while (i <= bigBoi) {
+		while (bigBoi%i == 0) {
+			bigBoi /= i;
+			largest = i;
+		}
+		i += 2;
+	}
+	std::cout << largest << std::endl;
+}
+
+void eulerProblem3b() {
+	long long int bigBoi = 600851475143;
+	int i = 3;
+	int largest = 0;
+	while (i <= bigBoi) {
+		while (bigBoi%i == 0) {
+			bigBoi /= i;
+			largest = i;
+		}
+		i += 2;
+	}
+	std::cout << largest << std::endl;
 }
 
 void eulerProblem26(){
