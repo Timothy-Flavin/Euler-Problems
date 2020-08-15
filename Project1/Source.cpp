@@ -4,7 +4,17 @@
 #include <vector>
 #include <chrono>
 #include <algorithm>
-double timeFunction(int(*func) (void));
+#include<array>
+template<class T>
+double timeFunction(T(*func) (void)) {
+
+	auto t1 = std::chrono::high_resolution_clock::now();
+	T answer = func();
+	auto t2 = std::chrono::high_resolution_clock::now();
+	//std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0 << " milli seconds" << std::endl;
+	std::cout << "Answer to problem: " << answer << std::endl;
+	return (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0);
+}
 int eulerProblem3();
 int eulerProblem3b();
 void eulerProblem7();
@@ -18,19 +28,24 @@ void eulerProblem_69();
 void testPrimesVsPrimes2();
 void eulerProblem31();
 void eulerProblem38();
-
+long long int eulerProblem43();
 
 
 int calcTotient(int n, std::vector<int> primes);
 std::vector<int> getPrimes(int n);
 std::vector<int> getPrimes2(int n);
+
+
+
+
+
 int main() {
 
-	int (*func)(void) = &eulerProblem3;
+	long long int (*func)(void) = &eulerProblem43;
 	int (*func2)(void) = &eulerProblem3b;
 	double totalTime1 = 0;
 	double totalTime2 = 0;
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 1; i++) {
 		totalTime1+=timeFunction(func);
 		totalTime2+=timeFunction(func2);
 	}
@@ -42,29 +57,20 @@ int main() {
 	return 0;
 }
 
-double timeFunction(int(*func) (void)) {
-	int answer = 0;
-	auto t1 = std::chrono::high_resolution_clock::now();
-	answer=func();
-	auto t2 = std::chrono::high_resolution_clock::now();
-	//std::cout << "Time elapsed: " << std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0 << " milli seconds" << std::endl;
-	std::cout << "Answer to problem: " << answer << std::endl;
-	return (double)(std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 1000000.0);
-}
+
+
 
 int eulerProblem3() {
 	long long int bigBoi = 600851475143;
 	long long int i = 3;
-	long long int largest = 0;
 	while (i <= bigBoi) {
 		while (bigBoi%i == 0) {
 			bigBoi /= i;
-			largest = i;
 		}
 		i += 2;
 	}
-	//std::cout << largest << std::endl;
-	return largest;
+	std::cout << i-2 << std::endl;
+	return i-2;
 }
 
 int eulerProblem3b() {
@@ -573,4 +579,83 @@ void eulerProblem38(){
 		}
 	}
 	std::cout<<"answer: "<<answer<<std::endl;
+}
+
+/*
+d2d3d4=406 is divisible by 2
+d3d4d5=063 is divisible by 3
+d4d5d6=635 is divisible by 5
+d5d6d7=357 is divisible by 7
+d6d7d8=572 is divisible by 11
+d7d8d9=728 is divisible by 13
+d8d9d10=289 is divisible by 17
+*/
+long long int eulerProblem43() {
+	int pandigital[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int divisible[] = { 2,3,5,7,11,13,17 };
+	//std::swap(pandigital[1], pandigital[2]);
+	int substr = 0;
+	long long int sum = 0;
+	do {
+		//std::cin.get();
+		bool goodSubstring = true;
+		for (int i = 1; i < 8; ++i) {
+			substr = 0;
+			substr += pandigital[i]*100;
+			substr += pandigital[i+1]*10;
+			substr += pandigital[i+2];
+			if (!(substr%divisible[i - 1]==0)) {
+				goodSubstring = false;
+				break;
+			}
+		}
+		if (goodSubstring) {
+			long long int temp = 0;
+			unsigned int multiple = 1;
+			for (int i = 9; i >= 0; --i) {
+				temp += pandigital[i] * multiple;
+				multiple *= 10;
+			}
+			//std::cout << pandigital[0] << ' ' << pandigital[1] << ' ' << pandigital[2] << ' ' << pandigital[3] << ' ' << pandigital[4] << ' ' << pandigital[5] << ' ' << pandigital[6] << ' ' << pandigital[7] << ' ' << pandigital[8] << ' ' << pandigital[9] << '\n';
+			//std::cout << temp << std::endl;
+			sum += temp;
+			//std::cin.get();
+		}
+	} while (std::next_permutation(pandigital, pandigital + 10));
+	return sum;
+}
+
+long long int eulerProblem43() {
+	int pandigital[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int divisible[] = { 2,3,5,7,11,13,17 };
+	//std::swap(pandigital[1], pandigital[2]);
+	int substr = 0;
+	long long int sum = 0;
+	do {
+		//std::cin.get();
+		bool goodSubstring = true;
+		for (int i = 1; i < 8; ++i) {
+			substr = 0;
+			substr += pandigital[i]*100;
+			substr += pandigital[i+1]*10;
+			substr += pandigital[i+2];
+			if (!(substr%divisible[i - 1]==0)) {
+				goodSubstring = false;
+				break;
+			}
+		}
+		if (goodSubstring) {
+			long long int temp = 0;
+			unsigned int multiple = 1;
+			for (int i = 9; i >= 0; --i) {
+				temp += pandigital[i] * multiple;
+				multiple *= 10;
+			}
+			//std::cout << pandigital[0] << ' ' << pandigital[1] << ' ' << pandigital[2] << ' ' << pandigital[3] << ' ' << pandigital[4] << ' ' << pandigital[5] << ' ' << pandigital[6] << ' ' << pandigital[7] << ' ' << pandigital[8] << ' ' << pandigital[9] << '\n';
+			//std::cout << temp << std::endl;
+			sum += temp;
+			//std::cin.get();
+		}
+	} while (std::next_permutation(pandigital, pandigital + 10));
+	return sum;
 }
