@@ -29,6 +29,8 @@ void testPrimesVsPrimes2();
 void eulerProblem31();
 void eulerProblem38();
 long long int eulerProblem43();
+long long int eulerProblem43b();
+long long int eulerProblem43c();
 
 
 int calcTotient(int n, std::vector<int> primes);
@@ -40,18 +42,18 @@ std::vector<int> getPrimes2(int n);
 
 
 int main() {
-
+	int numTests = 1000;
 	long long int (*func)(void) = &eulerProblem43;
-	int (*func2)(void) = &eulerProblem3b;
+	long long int (*func2)(void) = &eulerProblem43c;
 	double totalTime1 = 0;
 	double totalTime2 = 0;
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < numTests; i++) {
 		totalTime1+=timeFunction(func);
 		totalTime2+=timeFunction(func2);
 	}
 
-	std::cout << "Total time 1: " << totalTime1 << std::endl;
-	std::cout << "Total time 2: " << totalTime2 << std::endl;
+	std::cout << "Avg time 1: " << totalTime1/numTests << std::endl;
+	std::cout << "Avg time 2: " << totalTime2/numTests << std::endl;
 
 	std::cin.get();
 	return 0;
@@ -604,7 +606,7 @@ long long int eulerProblem43() {
 			substr += pandigital[i]*100;
 			substr += pandigital[i+1]*10;
 			substr += pandigital[i+2];
-			if (!(substr%divisible[i - 1]==0)) {
+			if (substr%divisible[i - 1]!=0) {
 				goodSubstring = false;
 				break;
 			}
@@ -625,28 +627,36 @@ long long int eulerProblem43() {
 	return sum;
 }
 
-long long int eulerProblem43() {
+long long int eulerProblem43b() {
 	int pandigital[] = { 0,1,2,3,4,5,6,7,8,9 };
 	int divisible[] = { 2,3,5,7,11,13,17 };
 	//std::swap(pandigital[1], pandigital[2]);
-	int substr = 0;
 	long long int sum = 0;
 	do {
 		//std::cin.get();
 		bool goodSubstring = true;
-		for (int i = 1; i < 8; ++i) {
-			substr = 0;
-			substr += pandigital[i]*100;
-			substr += pandigital[i+1]*10;
-			substr += pandigital[i+2];
-			if (!(substr%divisible[i - 1]==0)) {
+		if (pandigital[3]&1) {
+			goodSubstring = false;
+			continue;
+		}
+		if ((pandigital[2]+ pandigital[3]+ pandigital[4]) % 3 != 0) {
+			goodSubstring = false;
+			continue;
+		}
+		if (pandigital[5] != 5 && pandigital[5] != 0) {
+			goodSubstring = false;
+			continue;
+		}
+		for (int i = 4; i < 8; ++i) {
+			if ((pandigital[i] * 100 + pandigital[i + 1] * 10 + pandigital[i + 2])%divisible[i - 1]!=0) {
 				goodSubstring = false;
 				break;
 			}
 		}
+		
 		if (goodSubstring) {
 			long long int temp = 0;
-			unsigned int multiple = 1;
+			long long int multiple = 1;
 			for (int i = 9; i >= 0; --i) {
 				temp += pandigital[i] * multiple;
 				multiple *= 10;
@@ -659,3 +669,40 @@ long long int eulerProblem43() {
 	} while (std::next_permutation(pandigital, pandigital + 10));
 	return sum;
 }
+
+long long int eulerProblem43c() {
+	int pandigital[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int divisible[] = { 2,3,5,7,11,13,17 };
+	//std::swap(pandigital[1], pandigital[2]);
+	long long int sum = 0;
+	long long int temp = 0;
+	long long int multiple = 1;
+	do {
+		//std::cin.get();
+		//bool goodSubstring = true;
+		if (pandigital[3] & 1 || ((pandigital[2] + pandigital[3] + pandigital[4]) % 3 != 0) || (pandigital[5] != 5 && pandigital[5] != 0)) {
+			//goodSubstring = false;
+			continue;
+		}
+		for (int i = 4; i < 8; ++i) {
+			if ((pandigital[i] * 100 + pandigital[i + 1] * 10 + pandigital[i + 2]) % divisible[i - 1] != 0) {
+				//goodSubstring = false;
+				goto ENDOFLOOP;
+			}
+		}
+
+		temp = 0;
+		multiple = 1;
+		for (int i = 9; i >= 0; --i) {
+			temp += pandigital[i] * multiple;
+			multiple *= 10;
+		}
+		//std::cout << pandigital[0] << ' ' << pandigital[1] << ' ' << pandigital[2] << ' ' << pandigital[3] << ' ' << pandigital[4] << ' ' << pandigital[5] << ' ' << pandigital[6] << ' ' << pandigital[7] << ' ' << pandigital[8] << ' ' << pandigital[9] << '\n';
+		//std::cout << temp << std::endl;
+		sum += temp;
+		//std::cin.get();
+		ENDOFLOOP:;
+	} while (std::next_permutation(pandigital, pandigital + 10));
+	return sum;
+}
+
