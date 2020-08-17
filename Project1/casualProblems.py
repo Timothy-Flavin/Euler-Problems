@@ -636,8 +636,6 @@ def eulerProblem41():
         for i in range(numDigits):
             panNum=str(i+1)+panNum
         #print(panNum)
-
-
         curNumStr = list(str(panNum))
         for i in range(len(curNumStr)):
             curNumStr[i] = int(curNumStr[i])

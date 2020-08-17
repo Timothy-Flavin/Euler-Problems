@@ -31,6 +31,7 @@ void eulerProblem38();
 long long int eulerProblem43();
 long long int eulerProblem43b();
 long long int eulerProblem43c();
+int eulerProblem44();
 
 
 int calcTotient(int n, std::vector<int> primes);
@@ -42,14 +43,14 @@ std::vector<int> getPrimes2(int n);
 
 
 int main() {
-	int numTests = 1000;
-	long long int (*func)(void) = &eulerProblem43;
+	int numTests = 1;
+	int (*func)(void) = &eulerProblem44;
 	long long int (*func2)(void) = &eulerProblem43c;
 	double totalTime1 = 0;
 	double totalTime2 = 0;
 	for (int i = 0; i < numTests; i++) {
 		totalTime1+=timeFunction(func);
-		totalTime2+=timeFunction(func2);
+		//totalTime2+=timeFunction(func2);
 	}
 
 	std::cout << "Avg time 1: " << totalTime1/numTests << std::endl;
@@ -706,3 +707,45 @@ long long int eulerProblem43c() {
 	return sum;
 }
 
+int eulerProblem44() {
+	//n(3n-1)/2
+	int p1 = 1, p2 = 5, pdif = INT_MAX;
+	std::vector<int> pentagonalNums;
+	pentagonalNums.push_back(1);
+	pentagonalNums.push_back(5);
+	pentagonalNums.push_back(12);
+	std::cout<<std::binary_search(pentagonalNums.begin(), pentagonalNums.end(), 1)<<"end cout"<<std::endl;
+	int p1i = 2, p2i = 2;
+	while (true) {
+		++p2i;
+		for (int i = p2i; i < 10000; i++) {
+			++p2i;
+			if (p1i >= pentagonalNums.size()) {
+				pentagonalNums.push_back(p1i*(3 * p1i - 1) / 2);
+			}
+			if (p2i >= pentagonalNums.size()) {
+				pentagonalNums.push_back(p2i*(3 * p2i - 1) / 2);
+			}
+			if (std::binary_search(pentagonalNums.begin(), pentagonalNums.end(), std::abs((p1i*(3 * p1i - 1) / 2) - (p2i*(3 * p2i - 1) / 2)))) {
+				//std::cout << (p1i*(3 * p1i - 1) / 2) << ", " << (p2i*(3 * p2i - 1) / 2) << std::endl;
+				while (pentagonalNums.back() < (p1i*(3 * p1i - 1) / 2) + (p2i*(3 * p2i - 1))) {
+					int q = pentagonalNums.size();
+					//std::cout << "q:" << q << std::endl;
+					pentagonalNums.push_back(q*(3 * q - 1) / 2);
+				}
+
+				if (std::binary_search(pentagonalNums.begin(), pentagonalNums.end(), std::abs((p1i*(3 * p1i - 1) / 2) + (p2i*(3 * p2i - 1) / 2)))) {
+
+					if (std::abs((p1i*(3 * p1i - 1) / 2) - (p2i*(3 * p2i - 1) / 2)) < pdif) {
+						pdif = std::abs((p1i*(3 * p1i - 1) / 2) - (p2i*(3 * p2i - 1) / 2));
+						std::cout << "min p so far: " << pdif << ", p1, p1: " << p1i << "," << p2i << std::endl;
+					}
+				}
+			}
+		}
+		p2i = p1i;
+		++p1i;
+		
+	}
+	return pdif;
+}
