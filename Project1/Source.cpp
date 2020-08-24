@@ -46,7 +46,7 @@ std::vector<int> getPrimes2(int n);
 
 int main() {
 	int numTests = 1;
-	int (*func)(void) = &eulerProblem44Helper;
+	int (*func)(void) = &eulerProblem44;
 	int (*func2)(void) = &eulerProblem44b;
 	double totalTime1 = 0;
 	double totalTime2 = 0;
@@ -740,7 +740,8 @@ int eulerProblem44() {
 
 					if (std::abs((p1i*(3 * p1i - 1) / 2) - (p2i*(3 * p2i - 1) / 2)) < pdif) {
 						pdif = std::abs((p1i*(3 * p1i - 1) / 2) - (p2i*(3 * p2i - 1) / 2));
-						std::cout << "min p so far: " << pdif << ", p1, p1: " << p1i << "," << p2i << std::endl;
+						//std::cout << "min p so far: " << pdif << ", p1, p1: " << p1i << "," << p2i << std::endl;
+						return pdif;
 					}
 				}
 			}
@@ -758,8 +759,8 @@ struct StrNumPair {
 bool myfunction(StrNumPair i, StrNumPair j) { return (i.diff < j.diff); }
 int eulerProblem44Helper() {
 	std::vector<StrNumPair> tries;
-	for (int i = 0; i < 9; i++) {
-		for (int j = i+1; j < 10; j++) {
+	for (int i = 1; i < 10; i++) {
+		for (int j = i+1; j < 11; j++) {
 			tries.push_back({ i, j, (j*(3*j-1)/2) - (i*(3 * i - 1) / 2) });
 			//std::cout << i << ',' << j << ',' << 0 << std::endl;
 			std::sort(tries.begin(), tries.end(), myfunction);
@@ -770,7 +771,27 @@ int eulerProblem44Helper() {
 	return 7;
 }
 
+int getDiff(int i, int j) {
+	return (j*(3 * j - 1) / 2) - (i*(3 * i - 1) / 2);
+}
+bool getPentagonal(int Num) {
+	float n = (1 + std::sqrt(24 * Num + 1)) / 6;
+	return (n - (int)n) == 0;
+}
 int eulerProblem44b() {
 	//n(3n-1)/2;
+	std::vector<StrNumPair> patterns;
+	patterns.push_back({ 1,2,4 });
+	int answer = -1;
+	while (answer < 0) {
+		for (StrNumPair i : patterns) {
+			if (getPentagonal(i.n2 - i.n1)) 
+				if(getPentagonal(i.n2 + i.n1)) {
+					return i.n2 + i.n1;
+				}
+			
+			
+		}
+	}
 	return 0;
 }
