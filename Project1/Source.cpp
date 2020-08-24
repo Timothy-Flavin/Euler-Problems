@@ -32,6 +32,8 @@ long long int eulerProblem43();
 long long int eulerProblem43b();
 long long int eulerProblem43c();
 int eulerProblem44();
+int eulerProblem44Helper();
+int eulerProblem44b();
 
 
 int calcTotient(int n, std::vector<int> primes);
@@ -44,8 +46,8 @@ std::vector<int> getPrimes2(int n);
 
 int main() {
 	int numTests = 1;
-	int (*func)(void) = &eulerProblem44;
-	long long int (*func2)(void) = &eulerProblem43c;
+	int (*func)(void) = &eulerProblem44Helper;
+	int (*func2)(void) = &eulerProblem44b;
 	double totalTime1 = 0;
 	double totalTime2 = 0;
 	for (int i = 0; i < numTests; i++) {
@@ -748,4 +750,27 @@ int eulerProblem44() {
 		
 	}
 	return pdif;
+}
+
+struct StrNumPair {
+	int n1 = 0, n2 = 0, diff = 0;
+};
+bool myfunction(StrNumPair i, StrNumPair j) { return (i.diff < j.diff); }
+int eulerProblem44Helper() {
+	std::vector<StrNumPair> tries;
+	for (int i = 0; i < 9; i++) {
+		for (int j = i+1; j < 10; j++) {
+			tries.push_back({ i, j, (j*(3*j-1)/2) - (i*(3 * i - 1) / 2) });
+			//std::cout << i << ',' << j << ',' << 0 << std::endl;
+			std::sort(tries.begin(), tries.end(), myfunction);
+		}
+	}
+	for (int i = 0; i < tries.size(); i++)
+		std::cout << tries.at(i).n1 << ',' << tries.at(i).n2 << ',' << tries.at(i).diff << std::endl;
+	return 7;
+}
+
+int eulerProblem44b() {
+	//n(3n-1)/2;
+	return 0;
 }
