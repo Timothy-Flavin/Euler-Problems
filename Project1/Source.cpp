@@ -52,7 +52,7 @@ int main() {
 	double totalTime2 = 0;
 	for (int i = 0; i < numTests; i++) {
 		totalTime1+=timeFunction(func);
-		//totalTime2+=timeFunction(func2);
+		totalTime2+=timeFunction(func2);
 	}
 
 	std::cout << "Avg time 1: " << totalTime1/numTests << std::endl;
@@ -774,24 +774,69 @@ int eulerProblem44Helper() {
 int getDiff(int i, int j) {
 	return (j*(3 * j - 1) / 2) - (i*(3 * i - 1) / 2);
 }
+int getPent(int i) {
+	return (i * (3 * i - 1) / 2);
+}
 bool getPentagonal(int Num) {
 	float n = (1 + std::sqrt(24 * Num + 1)) / 6;
 	return (n - (int)n) == 0;
 }
+
+int getInsertIndexLinear(std::vector<StrNumPair> &patterns, const int targetDiff) {
+	int i = 0;
+	const int len = patterns.size();
+	std::cout << len << std::endl;
+	while (i < len && targetDiff>patterns.at(i).diff) {
+		++i;
+	}
+	return i;
+}
+
+int getInsertIndexBinary() {
+
+}
+
 int eulerProblem44b() {
 	//n(3n-1)/2;
 	std::vector<StrNumPair> patterns;
 	patterns.push_back({ 1,2,4 });
-	int answer = -1;
-	while (answer < 0) {
+	int nDiff = 2;
+	while (true) {
+		/*std::cout << "Printing vector: " << std::endl;
 		for (StrNumPair i : patterns) {
-			if (getPentagonal(i.n2 - i.n1)) 
-				if(getPentagonal(i.n2 + i.n1)) {
-					return i.n2 + i.n1;
-				}
-			
-			
+			std::cout << i.n1 << ',' << i.n2 << ',' << i.diff << " : ";
 		}
+		std::cout << std::endl;
+		*/
+		if (getPentagonal(getPent(patterns.at(0).n2) - getPent(patterns.at(0).n1)))
+			if (getPentagonal(getPent(patterns.at(0).n2) + getPent(patterns.at(0).n1))) {
+				std::cout <<patterns.at(0).n1<<':'<<getPent(patterns.at(0).n1) << ',' <<patterns.at(0).n2<<':'<< getPent(patterns.at(0).n2) << std::endl;
+				//std::cin.get();
+				return getDiff(patterns.at(0).n1, patterns.at(0).n2);
+			}
+
+		//the first element is the smallest so we increment it and then bubble sort it. if it's n1 was 1 then we insert the next biggest
+		if (patterns.at(0).n1 == 1) { //if the one we are incrementing is the first of it's nDiff size then we add the next size up to the array
+			//std::cout << "getting insert position..." << std::endl;
+			const int diff = getDiff(1, 1 + nDiff);
+			const int pos = getInsertIndexLinear(patterns, diff);
+			std::vector<StrNumPair>::iterator it = patterns.begin();
+			//std::cout << "With nDiff: "<<nDiff<<", and diff: " << diff << ", pos: " << pos << std::endl;
+			patterns.insert(it + pos, { 1, 1 + nDiff, diff});
+			++nDiff;
+		}
+		
+		patterns.at(0).diff = getDiff(++patterns.at(0).n1, ++patterns.at(0).n2);
+		int j = 0;
+		int size = patterns.size();
+		while (j<size - 1 && patterns.at(j).diff>patterns.at(j + 1).diff) {
+			//std::cout << "swapping: " << patterns.at(j).n1 << ',' << patterns.at(j).n2 << ',' << patterns.at(j).diff << " and " << patterns.at(j + 1).n1 << ',' << patterns.at(j + 1).n2 << ',' << patterns.at(j + 1).diff << std::endl;
+			std::swap(patterns[j], patterns[j + 1]);
+			++j;
+		}
+		
+		//std::cin.get();
+			//gap StrNumPair in the correct position
 	}
 	return 0;
 }
