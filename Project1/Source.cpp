@@ -792,8 +792,27 @@ int getInsertIndexLinear(std::vector<StrNumPair> &patterns, const int targetDiff
 	return i;
 }
 
-int getInsertIndexBinary() {
-
+int getInsertIndexBinary(std::vector<StrNumPair> &patterns, const int targetDiff) {
+	int left = 0;
+	int right = patterns.size()-1;
+	while (left <= right) {
+		int middle = (left + right) / 2;
+		
+		if (patterns.at(middle).diff == targetDiff)
+			return middle;
+		else if (patterns.at(middle).diff > targetDiff)
+			right = middle - 1;
+		else
+			left = middle + 1;
+		
+		//std::cin.get();
+	}
+	std::cout << "r: " << right << ", l: " << left << ", s: " << patterns.size() << std::endl;
+	if (left < patterns.size() && right < patterns.size()) {
+		std::cout << "left: " << patterns.at(left).n1 << ',' << patterns.at(left).n2 << ',' << patterns.at(left).diff << std::endl;
+		std::cout << "right: " << patterns.at(right).n1 << ',' << patterns.at(right).n2 << ',' << patterns.at(right).diff << std::endl;
+	}
+	return -1;
 }
 
 int eulerProblem44b() {
@@ -819,11 +838,14 @@ int eulerProblem44b() {
 		if (patterns.at(0).n1 == 1) { //if the one we are incrementing is the first of it's nDiff size then we add the next size up to the array
 			//std::cout << "getting insert position..." << std::endl;
 			const int diff = getDiff(1, 1 + nDiff);
-			const int pos = getInsertIndexLinear(patterns, diff);
-			std::vector<StrNumPair>::iterator it = patterns.begin();
+			//const int pos = getInsertIndexLinear(patterns, diff);
+			//getInsertIndexBinary(patterns,diff);
+			//std::vector<StrNumPair>::iterator it = patterns.begin();
 			//std::cout << "With nDiff: "<<nDiff<<", and diff: " << diff << ", pos: " << pos << std::endl;
-			patterns.insert(it + pos, { 1, 1 + nDiff, diff});
+			//patterns.insert(it + pos, { 1, 1 + nDiff, diff});
+			patterns.push_back({ 1,1 + nDiff,diff });
 			++nDiff;
+			//std::cin.get();
 		}
 		
 		patterns.at(0).diff = getDiff(++patterns.at(0).n1, ++patterns.at(0).n2);
