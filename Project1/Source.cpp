@@ -878,26 +878,29 @@ long long int eulerProblem45() {
 }
 
 long long int eulerProblem45b() {
-	long long int test = 0;
-	while (2 * test*test - test != 1533776805) ++test;
+	/*unsigned long long int t = 26755;
+	unsigned long long int test = (3 * t * t - t) / 2;
+	std::cout << test << std::endl;
+	t = 26756;
+	test = (3 * t * t - t) / 2;
 	std::cout << test;
-	int i = 143;
-	int j = 166;
-	bool pentagonal = false;
-	long long int hex = (2 * i*i - i);
-	long long int pent = (3 * j*j - j) / 2;
+	std::cin.get();
+	
+	bool pentagonal = false;*/
+	unsigned long long int i = 143;
+	unsigned long long int j = 166;
+	unsigned long long int hex = (2 * i*i - i);
+	unsigned long long int pent = (3 * j*j - j) / 2;
 	while (pent!=hex) {
 		++i;
 		hex = (2 * i*i - i);
 		pent = (3 * j*j - j) / 2;
-		while (pent < hex) {
+		while (pent < hex && pent>0) {
 			++j;
 			pent = (3 * j*j - j) / 2;
-			std::cout << pent << std::endl;
+			//std::cout << "i: " << i << ", j: " << j << ", pent: " << pent << ", hex: " << hex << std::endl;
+			//std::cout << pent << std::endl;
 		}
-		
-		if (i > 27693)
-			std::cout << "oh noes";
 	}
 	return (long long int)(2 * i*i - i);
 }
