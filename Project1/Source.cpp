@@ -34,6 +34,8 @@ long long int eulerProblem43c();
 int eulerProblem44();
 int eulerProblem44Helper();
 int eulerProblem44b();
+long long int eulerProblem45();
+long long int eulerProblem45b();
 
 
 int calcTotient(int n, std::vector<int> primes);
@@ -46,12 +48,12 @@ std::vector<int> getPrimes2(int n);
 
 int main() {
 	int numTests = 1;
-	int (*func)(void) = &eulerProblem44;
-	int (*func2)(void) = &eulerProblem44b;
+	long long int (*func)(void) = &eulerProblem45;
+	long long int (*func2)(void) = &eulerProblem45b;
 	double totalTime1 = 0;
 	double totalTime2 = 0;
 	for (int i = 0; i < numTests; i++) {
-		totalTime1+=timeFunction(func);
+		//totalTime1+=timeFunction(func);
 		totalTime2+=timeFunction(func2);
 	}
 
@@ -778,10 +780,14 @@ int getPent(int i) {
 	return (i * (3 * i - 1) / 2);
 }
 bool getPentagonal(int Num) {
-	float n = (1 + std::sqrt(24 * Num + 1)) / 6;
-	return (n - (int)n) == 0;
+	const long double n = std::sqrt(24 * Num + 1);
+	return (n-(int)n==0 && (int)n%6==5);
 }
-
+bool getHexagonal(int Num)
+{
+	const long double n = (1 + sqrt(8 * Num + 1))/4;
+	return ((n - (int)n) == 0);
+}
 int getInsertIndexLinear(std::vector<StrNumPair> &patterns, const int targetDiff) {
 	int i = 0;
 	const int len = patterns.size();
@@ -861,4 +867,37 @@ int eulerProblem44b() {
 			//gap StrNumPair in the correct position
 	}
 	return 0;
+}
+
+long long int eulerProblem45() {
+	int i = 286;
+	while (!getPentagonal((i*i + i) / 2) || !getHexagonal((i*i + i) / 2)) {
+		++i;
+	}
+	return (long long int)(i*i + i) / 2;
+}
+
+long long int eulerProblem45b() {
+	long long int test = 0;
+	while (2 * test*test - test != 1533776805) ++test;
+	std::cout << test;
+	int i = 143;
+	int j = 166;
+	bool pentagonal = false;
+	long long int hex = (2 * i*i - i);
+	long long int pent = (3 * j*j - j) / 2;
+	while (pent!=hex) {
+		++i;
+		hex = (2 * i*i - i);
+		pent = (3 * j*j - j) / 2;
+		while (pent < hex) {
+			++j;
+			pent = (3 * j*j - j) / 2;
+			std::cout << pent << std::endl;
+		}
+		
+		if (i > 27693)
+			std::cout << "oh noes";
+	}
+	return (long long int)(2 * i*i - i);
 }
